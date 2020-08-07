@@ -26,6 +26,7 @@ public class Board {
     public Board(Location[][] tiles) {
         locations = tiles;
         items = new ArrayList<Item>();
+
     }
 
     //------------------------
