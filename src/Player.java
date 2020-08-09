@@ -15,7 +15,7 @@ public class Player extends Item {
     //------------------------
 
     //Player Associations
-    private List<Card> cards;
+    private Map<String, Card> cards;
     private int steps;
 
     //------------------------
@@ -24,7 +24,7 @@ public class Player extends Item {
 
     public Player(String aName, Point aLocation) {
         super(aName, aLocation);
-        cards = new ArrayList<Card>();
+        cards = new TreeMap(String.CASE_INSENSITIVE_ORDER);
         steps = 0;
     }
 
@@ -53,7 +53,10 @@ public class Player extends Item {
     private boolean isValidMove(Board board, int x, int y) {
         int yPos = this.getLocation().y;
         int xPos = this.getLocation().x;
-        if (yPos+y < 0 || yPos+y >= Board.boardHeight || xPos+x < 0 || xPos+x >= Board.boardWidth) return false;
+        if (yPos+y < 0 || yPos+y >= Board.boardHeight || xPos+x < 0 || xPos+x >= Board.boardWidth) {
+            System.out.println("You cannot leave the board");
+            return false;
+        }
         Location start = board.getLocations()[yPos][xPos];
         Location end = board.getLocations()[yPos + y][xPos + x];
         boolean valid = true;
@@ -74,8 +77,8 @@ public class Player extends Item {
 
     private boolean isValidMove(Board board, Location room, int x) {
         if (((Room) room).isADoor()) {
-            if (x != 0 && (board.getLocations()[this.getLocation().y+1][this.getLocation().x+x] instanceof Floor
-                    || board.getLocations()[this.getLocation().y-1][this.getLocation().x+x] instanceof Floor)) return false;
+            if (x != 0 && (board.getLocations()[room.getLocation().y+1][room.getLocation().x] instanceof Floor
+                    || board.getLocations()[room.getLocation().y-1][room.getLocation().x] instanceof Floor)) return false;
         } else return false;
         return true;
     }
@@ -86,9 +89,8 @@ public class Player extends Item {
         return aCard;
     }
 
-    public List<Card> getCards() {
-        List<Card> newCards = Collections.unmodifiableList(cards);
-        return newCards;
+    public Map<String, Card> getCards() {
+        return cards;
     }
 
     public int numberOfCards() {
@@ -101,34 +103,9 @@ public class Player extends Item {
         return has;
     }
 
-    public int indexOfCard(Card aCard) {
-        int index = cards.indexOf(aCard);
-        return index;
-    }
-
     /* Code from template association_MinimumNumberOfMethod */
     public static int minimumNumberOfCards() {
         return 0;
-    }
-
-    /* Code from template association_AddUnidirectionalMany */
-    public boolean addCard(Card aCard) {
-        boolean wasAdded = false;
-        if (cards.contains(aCard)) {
-            return false;
-        }
-        cards.add(aCard);
-        wasAdded = true;
-        return wasAdded;
-    }
-
-    public boolean removeCard(Card aCard) {
-        boolean wasRemoved = false;
-        if (cards.contains(aCard)) {
-            cards.remove(aCard);
-            wasRemoved = true;
-        }
-        return wasRemoved;
     }
 
 }

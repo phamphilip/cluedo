@@ -17,9 +17,9 @@ public class Floor extends Location
   // CONSTRUCTOR
   //------------------------
 
-  public Floor(Item aItem)
+  public Floor(Item aItem, Point point)
   {
-    super(aItem);
+    super(aItem, point);
   }
 
   //------------------------

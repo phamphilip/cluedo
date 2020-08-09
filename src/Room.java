@@ -20,9 +20,9 @@ public class Room extends Location
   // CONSTRUCTOR
   //------------------------
 
-  public Room(String name, String id, Item item, Boolean isDoor)
+  public Room(String name, String id, Item item, Point point, Boolean isDoor)
   {
-    super(item);
+    super(item, point);
     this.id = id;
     this.name = name;
     this.isDoor = isDoor;

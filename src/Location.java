@@ -20,8 +20,9 @@ public class Location {
     // CONSTRUCTOR
     //------------------------
 
-    public Location(Item item) {
+    public Location(Item item, Point point) {
         this.item = item;
+        this.location = point;
     }
 
     //------------------------

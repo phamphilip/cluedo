@@ -16,8 +16,8 @@ public class Wall extends Location {
     // CONSTRUCTOR
     //------------------------
 
-    public Wall() {
-        super(null);
+    public Wall(Point point) {
+        super(null, point);
     }
 
     //------------------------
